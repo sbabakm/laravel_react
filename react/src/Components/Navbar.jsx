@@ -1,5 +1,17 @@
 import {Link} from "react-router-dom";
-export default function Sidebar() {
+import {useContext} from 'react';
+
+//import contexts
+import AppContext from "../Contexts/AppContext";
+
+export default function Navbar() {
+
+    const appContext = useContext(AppContext);
+
+    const onLogout = (ev) => {
+        ev.preventDefault();
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -32,6 +44,12 @@ export default function Sidebar() {
                             </Link>
                         </li>
                     </ul>
+                    <div>
+                       <span>{ appContext.user.name }</span>
+                        <span> 
+                            <button className="btn" onClick={onLogout}>logout</button> 
+                        </span>
+                    </div>
                 </div>
             </div>
         </nav>

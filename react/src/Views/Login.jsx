@@ -1,6 +1,11 @@
 function Login() {
+
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+    }
+
     return (
-        <form className="w-25 m-auto border p-5">
+        <form onSubmit={onSubmit} className="w-25 m-auto border p-5">
             <div className="form-outline mb-4">
                 <label className="form-label">Name</label>
                 <input type="text" id="" className="form-control" />
