@@ -16,7 +16,17 @@ import AppContext from "./Contexts/AppContext";
 function App() {
 
     const [user, setUser] = useState({});
-    const [token, setToken] = useState(null);
+    const [token, _setToken] = useState(null);
+
+    const setToken  = (token) => {
+      if(toke) {
+        localStorage.setItem("ACESS_TOKEN", token);
+      }
+      else{
+        localStorage.removeItem("ACESS_TOKEN");
+      }
+
+    }
 
     return (
         <>
