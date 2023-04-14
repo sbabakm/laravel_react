@@ -1,12 +1,15 @@
-import {Outlet} from 'react-router-dom';
+import { Outlet, Link } from "react-router-dom";
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 
-function DefaultLayout(){
+function DefaultLayout() {
     return (
         <>
-            Default Layout
+            <Navbar />
             <Outlet />
+            {/* <Sidebar /> */}
         </>
-    )
+    );
 }
 
 export default DefaultLayout;
