@@ -1,7 +1,25 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL : `http://127.0.0.1:8000/api`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
 });
 
-export default axios;
+instance.interceptors.request.use(
+    config => {
+        // Do something before request is sent
+        config.headers.Authorization = "Bearer " + localStorage.getItem('ACCESS_TOKEN');
+        return config;
+    });
+
+instance.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    const {response} = error;
+    //401 is authorization error
+    if(response.status === 401){
+        localStorage.removeItem('ACCESS_TOKEN');
+    }
+    throw error;
+});
+
+export default instance;
