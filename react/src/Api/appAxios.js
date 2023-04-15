@@ -14,10 +14,14 @@ instance.interceptors.request.use(
 instance.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    const {response} = error;
-    //401 is authorization error
-    if(response.status === 401){
-        localStorage.removeItem('ACCESS_TOKEN');
+    try {
+        const {response} = error;
+        //401 is authorization error
+        if(response.status === 401){
+            localStorage.removeItem('ACCESS_TOKEN');
+        }
+    } catch (e) {
+        console.error(e);
     }
     throw error;
 });
