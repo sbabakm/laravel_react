@@ -8,9 +8,9 @@ function GuestLayout(){
 
     const appContext = useContext(AppContext);
 
-    // if(appContext.token){
-    //    return <Navigate to="/" />
-    // }
+    if(appContext.token){
+       return <Navigate to="/" />
+    }
 
     return (
         <>

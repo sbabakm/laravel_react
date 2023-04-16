@@ -11,9 +11,9 @@ function DefaultLayout() {
 
     const appContext = useContext(AppContext);
 
-    // if(!appContext.token){
-    //    return <Navigate to="/login" />
-    // }
+    if(!appContext.token){
+       return <Navigate to="/login" />
+    }
 
     return (
         <>
