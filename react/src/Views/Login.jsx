@@ -1,7 +1,15 @@
-import {useRef} from "react";
+import {useContext, useRef, useState} from "react";
 import appApi from '../Api/appAxios';
 
+//import contexts
+import AppContext from '../Contexts/AppContext';
+
 function Login() {
+
+    const [errors, setErrors] = useState(null);
+
+    const appContext = useContext(AppContext);
+
     const emailElement = useRef();
     const passwordElement = useRef();
 
@@ -14,12 +22,35 @@ function Login() {
         };
 
         appApi.post('login',data)
-              .then(response => console.log(response))
-              .catch(err => console.log(err));
+              .then(response => {
+                  appContext.setUser(response.data.user);
+                  appContext.setToken(response.data.token);
+              })
+              .catch(err => {
+                  const response = err.response;
+                  //422 is validation error
+                  if (response && response.status === 422) {
+                      setErrors(response.data.errors);
+                  }
+              });
     }
 
     return (
         <form onSubmit={onSubmit} className="w-25 m-auto border p-5">
+            {
+                errors &&
+                <div className="alert alert-danger">
+                    {
+                        Object.keys(errors).map((key,index) => (
+                            <span key={key}>
+                                    <span>{index}-</span>
+                                    <span>{errors[key][0]}</span>
+                                    <br />
+                                </span>
+                        ))
+                    }
+                </div>
+            }
             <div className="form-outline mb-4">
                 <label className="form-label">Email</label>
                 <input ref={emailElement} type="email"  className="form-control" />
