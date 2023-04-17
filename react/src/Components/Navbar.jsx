@@ -3,6 +3,7 @@ import {useContext} from 'react';
 
 //import contexts
 import AppContext from "../Contexts/AppContext";
+import appApi from "../Api/appAxios";
 
 export default function Navbar() {
 
@@ -10,6 +11,12 @@ export default function Navbar() {
 
     const onLogout = (ev) => {
         ev.preventDefault();
+        appApi.post('/logout')
+            .then(() => {
+                appContext.setUser({});
+                appContext.setToken(null);
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -46,8 +53,8 @@ export default function Navbar() {
                     </ul>
                     <div>
                        <span>{ appContext.user.name }</span>
-                        <span> 
-                            <button className="btn" onClick={onLogout}>logout</button> 
+                        <span>
+                            <button className="btn" onClick={onLogout}>logout</button>
                         </span>
                     </div>
                 </div>
