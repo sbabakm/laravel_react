@@ -1,5 +1,6 @@
 import { Outlet, Link, Navigate } from "react-router-dom";
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
+import appApi from '../Api/appAxios';
 
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
@@ -14,6 +15,14 @@ function DefaultLayout() {
     if(!appContext.token){
        return <Navigate to="/login" />
     }
+
+    useEffect(() => {
+        appApi.get('/user')
+            .then((response) => {
+                appContext.setUser(response.data);
+            })
+            .catch(err => console.log(err))
+    },[]);
 
     return (
         <>
