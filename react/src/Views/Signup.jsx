@@ -48,10 +48,10 @@ function Signup() {
                     errors &&
                     <div className="alert alert-danger">
                         {
-                            Object.keys(errors).map((key,index) => (
-                                <span key={key}>
+                            Object.keys(errors).map((item,index) => (
+                                <span key={item}>
                                     <span>{index}-</span>
-                                    <span>{errors[key][0]}</span>
+                                    <span>{errors[item][0]}</span>
                                     <br />
                                 </span>
                             ))
