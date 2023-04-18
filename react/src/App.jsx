@@ -9,6 +9,7 @@ import GuestLayout from "./Components/GuestLayout";
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
 import Users from "./Views/Users";
+import CreateUser from "./Views/CreateUser";
 
 //import contexts
 import AppContext from "./Contexts/AppContext";
@@ -39,6 +40,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<DefaultLayout />}>
                         <Route path="users" element={<Users />} />
+                        <Route path="users/create" element={<CreateUser />} />
                     </Route>
 
                     <Route path="/" element={<GuestLayout />}>
