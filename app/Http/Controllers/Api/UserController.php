@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,9 +27,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $user = User::create($data);
+
+        return response($user);
     }
 
     /**
@@ -38,7 +44,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response($user);
     }
 
     /**
@@ -48,9 +54,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+
+        $user->update($data);
+
+        return response('user is updated');
     }
 
     /**
@@ -61,6 +71,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response('user is deleted');
     }
 }
