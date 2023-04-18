@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id','desc')->paginate(20);
+        $users = User::orderBy('id','desc')->paginate(10);
         return response($users);
     }
 
