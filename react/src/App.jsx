@@ -10,6 +10,7 @@ import Login from "./Views/Login";
 import Signup from "./Views/Signup";
 import Users from "./Views/Users";
 import CreateUser from "./Views/CreateUser";
+import EditUser from "./Views/EditUser";
 
 //import contexts
 import AppContext from "./Contexts/AppContext";
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/" element={<DefaultLayout />}>
                         <Route path="users" element={<Users />} />
                         <Route path="users/create" element={<CreateUser />} />
+                        <Route path="users/edit/:id" element={<EditUser />} />
                     </Route>
 
                     <Route path="/" element={<GuestLayout />}>

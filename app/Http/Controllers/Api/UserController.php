@@ -62,7 +62,11 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        $user->update($data);
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
 
         return response('user is updated');
     }
