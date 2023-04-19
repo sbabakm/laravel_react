@@ -21,7 +21,7 @@ function Users() {
                 setUsers(response.data.data);
                 setLoading(false);
             })
-            .catch(err => console.log(err))
+            .catch(() => setLoading(false))
     }
 
     const deleteHandler = (id) => {
