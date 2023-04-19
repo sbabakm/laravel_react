@@ -1,11 +1,14 @@
 import {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import appApi from "../Api/appAxios";
+import {useNavigate} from 'react-router-dom';
 
 function Users() {
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -16,6 +19,15 @@ function Users() {
             })
             .catch(err => console.log(err))
     },[]);
+
+    const deleteHandler = (id) => {
+        appApi.delete(`users/${id}`)
+            .then(() => {
+                console.log('user is deleted');
+                navigate('/users');
+            })
+            .catch(err => {console.log(err)});
+    }
 
     return (
         <>
@@ -41,7 +53,7 @@ function Users() {
                                         <td>{user.email}</td>
                                         <td>
                                             <Link to={`/users/edit/${user.id}`} className="btn btn-primary m-2">edit</Link>
-                                            <Link to="" className="btn btn-danger m-2">delete</Link>
+                                            <button onClick={() => deleteHandler(user.id)} className="btn btn-danger m-2">delete</button>
                                         </td>
                                     </tr>
                                 ))
