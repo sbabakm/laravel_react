@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //import components
 import DefaultLayout from "./Components/DefaultLayout";
@@ -40,6 +40,7 @@ function App() {
             }}>
                 <Routes>
                     <Route path="/" element={<DefaultLayout />}>
+                        <Route path="/" element={<Navigate to="/users" />} />
                         <Route path="users" element={<Users />} />
                         <Route path="users/create" element={<CreateUser />} />
                         <Route path="users/edit/:id" element={<EditUser />} />
