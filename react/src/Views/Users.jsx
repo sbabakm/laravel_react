@@ -11,6 +11,10 @@ function Users() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        getUsers();
+    },[]);
+
+    const getUsers = () => {
         setLoading(true);
         appApi.get('users')
             .then(response => {
@@ -18,13 +22,16 @@ function Users() {
                 setLoading(false);
             })
             .catch(err => console.log(err))
-    },[]);
+    }
 
     const deleteHandler = (id) => {
+        if(!window.confirm('Are you sure you wnat to delete this user?')){
+            return
+        }
         appApi.delete(`users/${id}`)
             .then(() => {
-                console.log('user is deleted');
-                navigate('/users');
+                //todo show notification
+                getUsers();
             })
             .catch(err => {console.log(err)});
     }
@@ -41,24 +48,36 @@ function Users() {
                     <th>actions</th>
                 </tr>
                 </thead>
-                <tbody>
                     {
                         loading
-                            ? <h2>Loading...</h2>
+                            ?
+                            <tbody>
+                                <tr>
+                                    <td colSpan="5">
+                                        Loading...
+                                    </td>
+                                </tr>
+                            </tbody>
                             :
-                               users.map((user,index) => (
+                            <tbody>
+                            {
+                                users.map((user, index) => (
                                     <tr key={index}>
                                         <td>{user.id}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>
-                                            <Link to={`/users/edit/${user.id}`} className="btn btn-primary m-2">edit</Link>
-                                            <button onClick={() => deleteHandler(user.id)} className="btn btn-danger m-2">delete</button>
+                                            <Link to={`/users/edit/${user.id}`}
+                                                  className="btn btn-primary m-2">edit</Link>
+                                            <button onClick={() => deleteHandler(user.id)}
+                                                    className="btn btn-danger m-2">delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
+                            }
+                            </tbody>
                     }
-                </tbody>
             </table>
         </>
     )
