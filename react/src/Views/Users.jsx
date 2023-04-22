@@ -1,7 +1,7 @@
 import {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom";
 import appApi from "../Api/appAxios";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import AppContext from "../Contexts/AppContext";
 
 
@@ -9,26 +9,34 @@ function Users() {
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [pagination, setPagination] = useState({
+        links : [],
+    });
 
     const navigate = useNavigate();
 
     const appContext = useContext(AppContext);
 
+    // const [searchParams, setSearchParams] = useSearchParams();
+
     useEffect(() => {
         getUsers();
     },[]);
 
-    const getUsers = () => {
+    const getUsers = (page) => {
         setLoading(true);
-        appApi.get('users')
+        // appApi.get(`users?page=${searchParams.get("page")}`)
+        appApi.get(`users?page=${page}`)
             .then(response => {
                 setUsers(response.data.data);
+                setPagination({...pagination, links : response.data.links});
                 setLoading(false);
             })
             .catch(() => setLoading(false))
     }
 
-    const deleteHandler = (id) => {
+    const deleteHandler = (ev, id) => {
+        ev.preventDefault();
         if(!window.confirm('Are you sure you wnat to delete this user?')){
             return
         }
@@ -73,7 +81,7 @@ function Users() {
                                         <td>
                                             <Link to={`/users/edit/${user.id}`}
                                                   className="btn btn-primary m-2">edit</Link>
-                                            <button onClick={() => deleteHandler(user.id)}
+                                            <button onClick={(ev) => deleteHandler(ev, user.id)}
                                                     className="btn btn-danger m-2">delete
                                             </button>
                                         </td>
@@ -81,8 +89,21 @@ function Users() {
                                 ))
                             }
                             </tbody>
+                            
                     }
             </table>
+            <nav aria-label="Page navigation example">
+                <ul className="pagination">
+                    { 
+                        pagination.links.map((link) => (
+                            <li className="page-item" key={link.label}>
+                                {/* <a className="page-link" href={`http://127.0.0.1:4000/users?page=${link.label}`}>{link.label}</a> */}
+                                <button className="page-link" onClick={() => getUsers(link.label)}>{link.label}</button>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
         </>
     )
 }
