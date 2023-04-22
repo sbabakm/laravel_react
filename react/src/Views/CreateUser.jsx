@@ -29,6 +29,7 @@ function CreateUser() {
 
         appApi.post('/users', data)
             .then(() => {
+                appContext.setNotification('user created successfully');
                 navigate('/users');
             })
             .catch(err => {

@@ -2,6 +2,8 @@ import {useContext, useRef, useState, useEffect} from "react";
 import appApi from "../Api/appAxios";
 import {useNavigate} from 'react-router-dom';
 import {useParams} from "react-router-dom";
+import AppContext from "../Contexts/AppContext";
+
 
 function EditUser() {
 
@@ -16,6 +18,8 @@ function EditUser() {
     });
 
     const navigate = useNavigate();
+
+    const appContext = useContext(AppContext);
 
     // const nameElement = useRef();
     // const emailElement = useRef();
@@ -50,7 +54,7 @@ function EditUser() {
         // appApi.put(`users/${params.id}`, data)
         appApi.put(`users/${params.id}`, user)
             .then(() => {
-                //todo show notification
+                appContext.setNotification('user is edited successfully');
                 navigate('/users');
             })
             .catch(err => {

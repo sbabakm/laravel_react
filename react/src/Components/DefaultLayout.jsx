@@ -29,6 +29,12 @@ function DefaultLayout() {
             <Navbar />
             <Outlet />
             {/* <Sidebar /> */}
+            {
+                appContext.notification && 
+                <div className="alert alert-success position-fixed bottom-0 end-0" role="alert">
+                    {appContext.notification}
+                </div>
+            }
         </>
     );
 }

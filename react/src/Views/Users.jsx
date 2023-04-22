@@ -1,7 +1,9 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom";
 import appApi from "../Api/appAxios";
 import {useNavigate} from 'react-router-dom';
+import AppContext from "../Contexts/AppContext";
+
 
 function Users() {
 
@@ -9,6 +11,8 @@ function Users() {
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+
+    const appContext = useContext(AppContext);
 
     useEffect(() => {
         getUsers();
@@ -30,7 +34,7 @@ function Users() {
         }
         appApi.delete(`users/${id}`)
             .then(() => {
-                //todo show notification
+                appContext.setNotification('user is deleted successfully');
                 getUsers();
             })
             .catch(err => {console.log(err)});

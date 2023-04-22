@@ -19,6 +19,7 @@ function App() {
 
     const [user, setUser] = useState({});
     const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
+    const [notification, _setNotification] = useState(null);
 
     const setToken  = (token) => {
       _setToken(token);
@@ -30,13 +31,22 @@ function App() {
       }
     }
 
+    const setNotification = (notif) => {
+        _setNotification(notif);
+        setTimeout(() => {
+            _setNotification(null);
+        },3000)
+    }
+
     return (
         <>
             <AppContext.Provider value={{
                 user : user,
                 token : token,
+                notification : notification,
                 setUser : setUser,
-                setToken : setToken
+                setToken : setToken,
+                setNotification : setNotification
             }}>
                 <Routes>
                     <Route path="/" element={<DefaultLayout />}>
