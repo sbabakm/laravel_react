@@ -20,7 +20,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light my-navbar">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     Laravel-React
