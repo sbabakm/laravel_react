@@ -1,8 +1,8 @@
 export default function Sidebar() {
     return (
         <div
-            className="d-flex flex-column flex-shrink-0 p-3 bg-light"
-            style={{ width: "280px" }}
+            className="d-flex flex-column flex-shrink-0 p-3 bg-light my-sidebar"
+            style={{width: "280px"}}
         >
             <a
                 href="/"
@@ -10,7 +10,7 @@ export default function Sidebar() {
             >
                 <span className="fs-4">Sidebar</span>
             </a>
-            <hr />
+            <hr/>
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
                     <a href="#" className="nav-link active" aria-current="page">
@@ -38,7 +38,7 @@ export default function Sidebar() {
                     </a>
                 </li>
             </ul>
-            <hr />
+            <hr/>
             <div className="dropdown">
                 <a
                     href="#"
@@ -76,7 +76,7 @@ export default function Sidebar() {
                         </a>
                     </li>
                     <li>
-                        <hr className="dropdown-divider" />
+                        <hr className="dropdown-divider"/>
                     </li>
                     <li>
                         <a className="dropdown-item" href="#">
