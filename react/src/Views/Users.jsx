@@ -9,6 +9,11 @@ function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [paginationLinks, setPaginationLinks] = useState([]);
+    const [paginationLinksV2, setPaginationLinksV2] = useState({
+        links : [],
+        prevPage : null,
+        nextPage : null,
+    });
 
     const navigate = useNavigate();
 
@@ -27,9 +32,31 @@ function Users() {
             .then(response => {
                 setUsers(response.data.data);
                 setPaginationLinks(response.data.links);
+                createPaginationLinksV2(response.data);
                 setLoading(false);
             })
             .catch(() => setLoading(false))
+    }
+
+    const createPaginationLinksV2 = (data) => {
+
+        let links = [];
+
+         let prevPage = data.prev_page_url && data.prev_page_url.slice(-1);
+         let nextPage = data.next_page_url && data.next_page_url.slice(-1);
+
+        for (let i = 1; i <= data.last_page; i++) {
+            links.push(i);
+        }
+
+        links = links.map(item => ({ label: item, url: `/users?page=${item}` }));
+
+        setPaginationLinksV2({...paginationLinksV2 ,
+            links : links,
+            prevPage : prevPage,
+            nextPage : nextPage,
+        });
+
     }
 
     const deleteHandler = (ev, id) => {
@@ -113,6 +140,30 @@ function Users() {
                             </li>
                         ))
                     }
+                </ul>
+
+                <ul className="pagination">
+                    <li className="page-item">
+                        <Link className="page-link"
+                              to={`/users?page=${paginationLinksV2.prevPage}`}
+                              style={paginationLinksV2.prevPage === null ? {pointerEvents: 'none'}: {}} >
+                            previous
+                        </Link>
+                    </li>
+                    {
+                        paginationLinksV2.links.map((link) => (
+                            <li className="page-item" key={link.label}>
+                                <Link className="page-link" to={link.url}>{link.label}</Link>
+                            </li>
+                        ))
+                    }
+                    <li className="page-item">
+                        <Link className="page-link"
+                              to={`/users?page=${paginationLinksV2.nextPage}`}
+                              style={paginationLinksV2.nextPage === null ? {pointerEvents: 'none'}: {}} >
+                            next
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </>
