@@ -40,6 +40,11 @@ function Users() {
 
     const createPaginationLinksV2 = (data) => {
 
+        /*
+        در این جا یعنی ورژن 2 ، من اومدم لینک های pagination رو خودم ساختم
+        ولی روش راحت تر این هستش که توی همون روش ورژن 1 بیایم از آرایه ی data.links که از سمت بک اند میاید استفاده کنیم
+        فقط تنها کاری که باید بکنیم این هستش که پروپرتی url رو یه تغییر کوچک روش بدیم
+        */
         let links = [];
 
          let prevPage = data.prev_page_url && data.prev_page_url.slice(-1);
