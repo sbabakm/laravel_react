@@ -8,9 +8,7 @@ function Users() {
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [pagination, setPagination] = useState({
-        links : [],
-    });
+    const [paginationLinks, setPaginationLinks] = useState([]);
 
     const navigate = useNavigate();
 
@@ -28,7 +26,7 @@ function Users() {
         // appApi.get(`users?page=${page}`)
             .then(response => {
                 setUsers(response.data.data);
-                setPagination({...pagination, links : response.data.links});
+                setPaginationLinks(response.data.links);
                 setLoading(false);
             })
             .catch(() => setLoading(false))
@@ -94,7 +92,7 @@ function Users() {
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
                     {
-                        pagination.links.map((link) => (
+                        paginationLinks.map((link) => (
                             <li className="page-item" key={link.label}>
 
                                 {/* استفاده از تگ <a> اشتباه است چون صفحه رفرش می شود */}
