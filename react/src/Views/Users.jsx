@@ -1,7 +1,6 @@
 import {useState, useEffect, useContext} from 'react';
-import {Link} from "react-router-dom";
 import appApi from "../Api/appAxios";
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate, useSearchParams, Link} from 'react-router-dom';
 import AppContext from "../Contexts/AppContext";
 
 
@@ -17,16 +16,16 @@ function Users() {
 
     const appContext = useContext(AppContext);
 
-    // const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         getUsers();
-    },[]);
+    },[searchParams.get("page")]);
 
     const getUsers = (page) => {
         setLoading(true);
-        // appApi.get(`users?page=${searchParams.get("page")}`)
-        appApi.get(`users?page=${page}`)
+        appApi.get(`users?page=${searchParams.get("page")}`)
+        // appApi.get(`users?page=${page}`)
             .then(response => {
                 setUsers(response.data.data);
                 setPagination({...pagination, links : response.data.links});
@@ -89,16 +88,30 @@ function Users() {
                                 ))
                             }
                             </tbody>
-                            
+
                     }
             </table>
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
-                    { 
+                    {
                         pagination.links.map((link) => (
                             <li className="page-item" key={link.label}>
-                                {/* <a className="page-link" href={`http://127.0.0.1:4000/users?page=${link.label}`}>{link.label}</a> */}
-                                <button className="page-link" onClick={() => getUsers(link.label)}>{link.label}</button>
+
+                                {/* استفاده از تگ <a> اشتباه است چون صفحه رفرش می شود */}
+                                {/*<a className="page-link" href={`http://127.0.0.1:4000/users?page=${link.label}`}>{link.label}</a>*/}
+
+
+                                {/* استفاده از تگ <Link> درست است ولی چالشی که وجود دارد این است که زمانی که کاربر روی دکمه های pagination کلیک می کند
+                                 یعنی زمانی که مقدار پارامتر در url عوض می شود ، تابع useEffect اجرا نمی شود و بنابراین دیتایی از سمت بک اند دریافت نمی شود
+                                 دلیل این اتفاق این است که تابع useEffect فقط یکبار و به هنگام mounting اجرا می شود ، راه حل این قضیه آنست که تابع useEffect
+                                 هم به هنگام mounting و هم در هنگامی که پارامتر عوض می شود، اجرا بشود پس به ورودی دوم تابع useEffect به جای یک آرایه ی خالی ،
+                                 [searchParams.get("page")]
+                                 رو پاس می دهیم
+                                 */}
+                                 <Link className="page-link" to={`/users?page=${link.label}`}>{link.label}</Link>
+
+
+                                {/*<button className="page-link" onClick={() => getUsers(link.label)}>{link.label}</button>*/}
                             </li>
                         ))
                     }
