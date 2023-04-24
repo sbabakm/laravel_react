@@ -23,7 +23,7 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
-                    Navbar
+                    Laravel-React
                 </a>
                 <button
                     className="navbar-toggler"
@@ -51,7 +51,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                     </ul>
-                    <div>
+                    <div className="d-flex align-items-center">
                        <span>{ appContext.user.name }</span>
                         <span>
                             <button className="btn" onClick={onLogout}>logout</button>
