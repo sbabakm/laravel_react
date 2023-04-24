@@ -49,7 +49,11 @@ function Users() {
             links.push(i);
         }
 
-        links = links.map(item => ({ label: item, url: `/users?page=${item}` }));
+        links = links.map(item => ({
+            label: item,
+            url: `/users?page=${item}`,
+            active: (item ==  searchParams.get("page") || (item == 1 && searchParams.get("page") == null)) ? true : false,
+        }));
 
         setPaginationLinksV2({...paginationLinksV2 ,
             links : links,
@@ -153,7 +157,13 @@ function Users() {
                     {
                         paginationLinksV2.links.map((link) => (
                             <li className="page-item" key={link.label}>
-                                <Link className="page-link" to={link.url}>{link.label}</Link>
+                                <Link className="page-link"
+                                      to={link.url}
+                                      //style={link.label == searchParams.get("page") ? {backgroundColor: 'blue',color: 'white'}: {}}
+                                      style={link.active ? {backgroundColor: 'blue',color: 'white'} : {}}
+                                >
+                                    {link.label}
+                                </Link>
                             </li>
                         ))
                     }
