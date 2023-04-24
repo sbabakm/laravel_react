@@ -57,7 +57,7 @@ function Users() {
         links = links.map(item => ({
             label: item,
             url: `/users?page=${item}`,
-            active: (item ==  searchParams.get("page") || (item == 1 && searchParams.get("page") == null)) ? true : false,
+            active: (item ==  searchParams.get("page") || (item == 1 && searchParams.get("page") == null)) ? true : false,//Todo , convert type string to int
         }));
 
         setPaginationLinksV2({...paginationLinksV2 ,
