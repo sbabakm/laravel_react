@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {useContext} from 'react';
 
 //import contexts
@@ -42,22 +42,22 @@ export default function Navbar() {
                 >
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link
+                            <NavLink
                                 to="/users"
                                 className="nav-link"
 
                             >
                                 users
-                            </Link>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link
+                            <NavLink
                                 to="/dashboard"
                                 className="nav-link"
 
                             >
                                 dashboard
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
                     <div className="d-flex align-items-center text-white">
