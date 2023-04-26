@@ -15,9 +15,14 @@ function Users() {
         prevPage : null,
         nextPage : null,
     });
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showModal, setShowModal] = useState(false);
+    const [idOfCurrentItemForDelete, setIdOfCurrentItemForDelete] = useState(null);
+
+    const handleCloseModal = () => {
+        setIdOfCurrentItemForDelete(null);
+        setShowModal(false);
+    }
+    // const handleShowModal = () => setShowModal(true);
 
 
     const navigate = useNavigate();
@@ -73,18 +78,34 @@ function Users() {
 
     }
 
-    const deleteHandler = (ev, id) => {
+    const clickOnDeleteButton = (ev,id) => {
         ev.preventDefault();
-        if(!window.confirm('Are you sure you wnat to delete this user?')){
-            return
-        }
-        appApi.delete(`users/${id}`)
-            .then(() => {
-                appContext.setNotification('user is deleted successfully');
-                getUsers();
-            })
-            .catch(err => {console.log(err)});
+        setIdOfCurrentItemForDelete(id);
+        setShowModal(true);
     }
+
+    const sendDeleteRequestToBackend = () => {
+            appApi.delete(`users/${idOfCurrentItemForDelete}`)
+                .then(() => {
+                    setShowModal(false);
+                    appContext.setNotification('user is deleted successfully');
+                    getUsers();
+                })
+                .catch(err => {console.log(err)});
+    }
+
+    // const deleteHandler = (ev, id) => {
+    //     ev.preventDefault();
+    //     if(!window.confirm('Are you sure you wnat to delete this user?')){
+    //         return
+    //     }
+    //     appApi.delete(`users/${id}`)
+    //         .then(() => {
+    //             appContext.setNotification('user is deleted successfully');
+    //             getUsers();
+    //         })
+    //         .catch(err => {console.log(err)});
+    // }
 
     return (
         <div className="mx-3 mt-3">
@@ -121,11 +142,13 @@ function Users() {
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>
-                                            <Link to={`/users/edit/${user.id}`}
-                                                  className="btn btn-sm btn-primary m-2">edit</Link>
-                                            <button onClick={(ev) => deleteHandler(ev, user.id)}
-                                                    className="btn btn-sm btn-danger m-2">delete
+                                            <Link to={`/users/edit/${user.id}`} className="btn btn-sm btn-primary m-2">edit</Link>
+                                            <button onClick={(ev) => clickOnDeleteButton(ev, user.id)} className="btn btn-sm btn-danger m-2">
+                                                delete
                                             </button>
+                                            {/*<button onClick={(ev) => deleteHandler(ev, user.id)} className="btn btn-sm btn-danger m-2">*/}
+                                            {/*    delete*/}
+                                            {/*</button>*/}
                                         </td>
                                     </tr>
                                 ))
@@ -134,6 +157,8 @@ function Users() {
 
                     }
             </table>
+
+            {/* pagination section */}
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
                     {
@@ -193,21 +218,21 @@ function Users() {
 
             {/* modal section */}
             <>
-                <Button variant="primary" onClick={handleShow}>
-                    Launch demo modal
-                </Button>
+                {/*<Button variant="primary" onClick={handleShowModal}>*/}
+                {/*    Launch demo modal*/}
+                {/*</Button>*/}
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Modal heading</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="secondary" onClick={handleCloseModal}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
+                        <Button variant="danger" onClick={sendDeleteRequestToBackend}>
+                            Delete
                         </Button>
                     </Modal.Footer>
                 </Modal>
