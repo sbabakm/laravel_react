@@ -69,7 +69,7 @@ function EditUser() {
             loading
                  ? <h2>Loading</h2>
                  :
-                <form onSubmit={onSubmit} className="w-25 m-auto border p-5">
+                <form onSubmit={onSubmit} className="w-25 mx-auto mt-5 border p-5">
                 {
                     errors &&
                     <div className="alert alert-danger">
