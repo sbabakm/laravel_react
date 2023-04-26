@@ -1,3 +1,29 @@
+@font-face {
+    font-family: 'custom-font';
+    /*src: url('./Fonts/Lato-Bla.ttf');*/
+    /*src: url('./Fonts/Lato-BlaIta.ttf');*/
+    src: url('./Fonts/Lato-Bol.ttf');
+    /*src: url('./Fonts/Lato-BolIta.ttf');*/
+    /*src: url('./Fonts/Lato-Hai.ttf');*/
+    /*src: url('./Fonts/Lato-HaiIta.ttf');*/
+    /*src: url('./Fonts/Lato-Lig.ttf');*/
+    /*src: url('./Fonts/Lato-LigIta.ttf');*/
+    /*src: url('./Fonts/Lato-Reg.ttf');*/
+    /*src: url('./Fonts/Lato-RegIta.ttf');*/
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'custom-font', 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .my-sidebar {
     width: 280px;
     position: fixed;
