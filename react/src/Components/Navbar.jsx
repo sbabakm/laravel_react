@@ -44,10 +44,19 @@ export default function Navbar() {
                         <li className="nav-item">
                             <Link
                                 to="/users"
-                                className="nav-link active"
-                                aria-current="page"
+                                className="nav-link"
+
                             >
                                 users
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link
+                                to="/dashboard"
+                                className="nav-link"
+
+                            >
+                                dashboard
                             </Link>
                         </li>
                     </ul>
