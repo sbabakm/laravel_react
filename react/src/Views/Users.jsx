@@ -82,9 +82,9 @@ function Users() {
     }
 
     return (
-        <>
-            <Link to="/users/create" className="btn btn-success m-2">create</Link>
-            <table id="" className="table table-bordered table-hover dataTable">
+        <div className="mx-3 mt-3">
+            <Link to="/users/create" className="btn btn-sm btn-success m-2">create</Link>
+            <table id="" className="table table-light table-bordered table-hover dataTable">
                 <thead>
                 <tr>
                     <th>id</th>
@@ -99,7 +99,11 @@ function Users() {
                             <tbody>
                                 <tr>
                                     <td colSpan="5">
-                                        Loading...
+                                        <div className="d-flex justify-content-center">
+                                            <div className="spinner-border" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -113,9 +117,9 @@ function Users() {
                                         <td>{user.email}</td>
                                         <td>
                                             <Link to={`/users/edit/${user.id}`}
-                                                  className="btn btn-primary m-2">edit</Link>
+                                                  className="btn btn-sm btn-primary m-2">edit</Link>
                                             <button onClick={(ev) => deleteHandler(ev, user.id)}
-                                                    className="btn btn-danger m-2">delete
+                                                    className="btn btn-sm btn-danger m-2">delete
                                             </button>
                                         </td>
                                     </tr>
@@ -181,7 +185,7 @@ function Users() {
                     </li>
                 </ul>
             </nav>
-        </>
+        </div>
     )
 }
 
