@@ -222,7 +222,7 @@ function Users() {
                 {/*    Launch demo modal*/}
                 {/*</Button>*/}
 
-                <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal show={showModal} onHide={handleCloseModal} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Modal heading</Modal.Title>
                     </Modal.Header>
