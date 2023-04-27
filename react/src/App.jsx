@@ -13,6 +13,8 @@ import Users from "./Views/Users";
 import CreateUser from "./Views/CreateUser";
 import EditUser from "./Views/EditUser";
 import Dashboard from "./Views/Dashboard";
+import CreateBdgHeader from "./Views/CreateBdgHeader";
+import CreateBdgItems from "./Views/CreateBdgItems";
 
 //import contexts
 import AppContext from "./Contexts/AppContext";
@@ -58,6 +60,8 @@ function App() {
                         <Route path="users/create" element={<CreateUser />} />
                         <Route path="users/edit/:id" element={<EditUser />} />
                         <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="bdg/create/header" element={<CreateBdgHeader />} />
+                        <Route path="bdg/create/items" element={<CreateBdgItems />} />
                     </Route>
 
                     <Route path="/" element={<GuestLayout />}>
