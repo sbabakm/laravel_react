@@ -1,5 +1,11 @@
+import {useState} from "react";
 
 function CreateBdgItems() {
+
+    const [rows, setRows] = useState([{
+        cost : null,
+        month : null,
+    }]);
 
     const onSubmitItems = (ev) => {
         ev.preventDefault();
